@@ -108,7 +108,7 @@ class SelfBalancingBinaryTree {
      * @return The new root of the subtree.
      */
     Node* insert(Node* node, int data) {
-        // Perform the normal BST insertion.
+        // Perform the normal binarySearchTree insertion.
         if (node == nullptr) return new Node(data);
 
         if (data < node->data) {
@@ -162,7 +162,7 @@ class SelfBalancingBinaryTree {
      * @return The new root of the subtree.
      */
     Node* remove(Node* node, int data) {
-        // Perform the normal BST deletion.
+        // Perform the normal binarySearchTree deletion.
         if (node == nullptr) return node;
 
         if (data < node->data) {
@@ -299,13 +299,14 @@ class SelfBalancingBinaryTree {
     }
 
    public:
-    // Constructor initializes an empty BST.
+    // Constructor initializes an empty binarySearchTree.
     SelfBalancingBinaryTree() : root(nullptr) {}
 
-    // Overloaded constructor for creating a BST with an initial node.
+    // Overloaded constructor for creating a binarySearchTree with an initial
+    // node.
     SelfBalancingBinaryTree(int data) : root(new Node(data)) {}
 
-    // Destructor deallocates memory used by the BST.
+    // Destructor deallocates memory used by the binarySearchTree.
     ~SelfBalancingBinaryTree() { delete this->root; }
 
     /**
@@ -350,40 +351,57 @@ class SelfBalancingBinaryTree {
  * Example usage of the SelfBalancingBinaryTree class.
  */
 int main() {
-    SelfBalancingBinaryTree bst;
+    SelfBalancingBinaryTree binarySearchTree;
 
-    bst.insert(10);
-    bst.insert(20);
-    bst.insert(30);
-    bst.insert(40);
-    bst.insert(50);
-    bst.insert(25);
+    // Insert elements to create an initially balanced tree
+    std::cout << "Inserting elements to form the tree...\n";
+    binarySearchTree.insert(30);
+    binarySearchTree.insert(20);
+    binarySearchTree.insert(40);
+    binarySearchTree.insert(10);
+    binarySearchTree.insert(25);
+    binarySearchTree.insert(35);
+    binarySearchTree.insert(50);
 
-    std::cout << "Inorder traversal: ";
-    bst.print_in_order();
-    std::cout << std::endl;
+    // Display the tree in order to show initial balanced state
+    std::cout << "Initial tree (In order): ";
+    binarySearchTree.print_in_order();
+    std::cout << "\n";
 
-    std::cout << "Preorder traversal: ";
-    bst.print_pre_order();
-    std::cout << std::endl;
+    // Insert elements that would typically cause imbalance
+    std::cout << "\nInserting 5 to cause left imbalance.\n";
+    binarySearchTree.insert(5);
 
-    std::cout << "Postorder traversal: ";
-    bst.print_post_order();
-    std::cout << std::endl;
+    // Display the tree to show re-balanced state
+    std::cout << "Tree after inserting 5 (In order): ";
+    binarySearchTree.print_in_order();
+    std::cout << "\n";
 
-    bst.remove(20);
+    std::cout << "\nInserting 55 and 60 to cause right imbalance.\n";
+    binarySearchTree.insert(55);
+    binarySearchTree.insert(60);
 
-    std::cout << "Inorder traversal: ";
-    bst.print_in_order();
-    std::cout << std::endl;
+    // Display the tree to show re-balanced state
+    std::cout << "Tree after inserting 55 and 60 (In order): ";
+    binarySearchTree.print_in_order();
+    std::cout << "\n";
 
-    std::cout << "Preorder traversal: ";
-    bst.print_pre_order();
-    std::cout << std::endl;
+    // Demonstrate deletion maintaining balance
+    std::cout << "\nRemoving 20 (a node with a single child).\n";
+    binarySearchTree.remove(20);
 
-    std::cout << "Postorder traversal: ";
-    bst.print_post_order();
-    std::cout << std::endl;
+    // Display the tree to show re-balanced state
+    std::cout << "Tree after removing 20 (In order): ";
+    binarySearchTree.print_in_order();
+    std::cout << "\n";
+
+    std::cout << "\nRemoving 30 (a node with two children).\n";
+    binarySearchTree.remove(30);
+
+    // Display the tree to show it remains balanced after removals
+    std::cout << "Tree after removing 30 (In order): ";
+    binarySearchTree.print_in_order();
+    std::cout << "\n";
 
     return 0;
 }
